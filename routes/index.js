@@ -35,12 +35,12 @@ exports.index = function (req, res, next) {
 };
 
 exports.loginHandler = function (req, res, next) {
-  if (validator.isEmail(req.body.username)) {
-    User.find({ username: req.body.username, password: req.body.password }, function (err, users) {
+  if (validator.isEmail(req.body.username.toString())) {
+    User.find({ username: req.body.username.toString(), password: req.body.password.toString() }, function (err, users) {
       if (users.length > 0) {
-        const redirectPage = req.body.redirectPage
-        const session = req.session
-        const username = req.body.username
+        const redirectPage = req.body.redirectPage.toString()
+        const session = req.session.toString()
+        const username = req.body.username.toString()
         return adminLoginSuccess(redirectPage, session, username, res)
       } else {
         return res.status(401).send()
